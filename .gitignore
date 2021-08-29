@@ -1,0 +1,5 @@
+# macOS system file
+.DS_Store
+
+/deployments/solo/home
+/deployments/cluster/network
