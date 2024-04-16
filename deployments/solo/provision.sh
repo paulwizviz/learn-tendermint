@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 tendermint init validator
 

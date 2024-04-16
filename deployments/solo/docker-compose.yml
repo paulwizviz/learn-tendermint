@@ -3,21 +3,17 @@ version: '3.4'
 services:
 
   tendermint_node:
-    build:
-      context: ../../
-      dockerfile: ./deployments/solo/Dockerfile
     image: ${TENDERMINT_NODE_IMAGE}
-    image: ${TENDERMINT_NODE_IMAGE}
-    container_name: ${TENDERMINT_SOLO_CONTAINER}
+    container_name: ${SOLO_NODE_CONTAINER}
     working_dir: /root
-    command: ./provision.sh
+    command: sh ./provision.sh
     ports:
       - "26656-26657:26656-26657"
     volumes:
       - ./provision.sh:/root/provision.sh
     networks:
-      - network_1
+      - local
 
 networks: 
-  network_1:
-      name: ${NETWORK_NAME}
+  local:
+      name: ${SOLO_NETWORK}
