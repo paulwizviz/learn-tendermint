@@ -1,13 +1,10 @@
-# Local Node
+# Tendermint
 
-This section looks at:
-
-* process to build node from source;
-* features of a tendermint node via a working local node.
+Tendermint is a tool to help you spin up replicated application across multiple machine that is Byzantine Fault Tolerant (BFT). There are two major components: tendermint core (consensus engine) and Application BlockChain Interface (ABCI). For detailed description please refer to [what is tendermint?](https://docs.tendermint.com/v0.34/introduction/what-is-tendermint.html).
 
 ## Building node from source code
 
-The tendermint source code is found [here](https://github.com/tendermint/tendermint.git).
+The tendermint source code is located in [github.com/tendermint/tendermint.git](https://github.com/tendermint/tendermint.git). It is also worth noting that the source code can also generate supporting tools.
 
 The process to build tendermint from source is [here](../build/localbuild.dockerfile).
 
