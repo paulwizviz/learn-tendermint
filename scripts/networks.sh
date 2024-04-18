@@ -12,17 +12,18 @@ function solo_network(){
         "stop")
             docker-compose -f ./deployments/solo/docker-compose.yml down
             ;;
+        "clean")
+            docker-compose -f ./deployments/solo/docker-compose.yml down
+            docker rm -f ${SOLO_NODE_CONTAINER}
+            docker network rm ${SOLO_NETWORK}
+            ;;
         *)
-            echo "Usage: $0 network [type]
+            echo "Usage: $0 solo [commands]
             
-type:
+commands:
+    clean  solo containers and network
     start  solo network
     stop   solo network"
             ;;
     esac
-}
-
-function clean_network(){
-    docker rm -f ${SOLO_NODE_CONTAINER}
-    docker network rm ${SOLO_NETWORK}
 }

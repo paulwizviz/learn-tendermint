@@ -10,38 +10,24 @@ fi
 
 COMMAND=$1
 SUBCOMMAND1=$2
-SUBCOMMAND2=$3
-
-function network(){
-    local cmd=$1
-    case $cmd in
-        "solo")
-            solo_network $SUBCOMMAND2
-            ;;
-        "clean")
-            clean_network
-            ;;
-        *)
-            echo "Usage: $0 network [type]
-
-type:
-    solo   network
-    clean  network"
-    esac
-}
 
 case $COMMAND in
     "image")
         image $SUBCOMMAND1
         ;;
-    "network")
-        network $SUBCOMMAND1
+    "solo")
+        solo_network $SUBCOMMAND1
+        ;;
+    "clean")
+        solo_network clean
+        image clean
         ;;
     *)
         echo "$0 [command]
 
 command:
-    image    operation to build or clean images
-    network  related operations"
+    image  operation to build or clean images
+    solo   a network with solo tendermint node
+    clean  containers and images"
         ;;
 esac
