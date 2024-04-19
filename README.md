@@ -15,4 +15,4 @@ This project discuss and examine, through working examples, the inner workings a
 
 The content of this project is intended for educational purposes only.
 
-Unless otherwise stated, any opinions expressed in this project belong to the contributor(s).
+Unless otherwise stated, any opinion expressed in this project belongs to the contributor(s).
