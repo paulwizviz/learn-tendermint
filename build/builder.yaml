@@ -2,10 +2,10 @@ version: '3.8' # this is obsolete and optional
 
 services:
 
-  localbuild:
+  solo:
     build:
       context: ../
-      dockerfile: ./build/localbuild.dockerfile
+      dockerfile: ./build/solo.dockerfile
       args:
         OS_VER: 3.18
         GO_VER: 1.22.1
