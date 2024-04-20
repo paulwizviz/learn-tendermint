@@ -2,12 +2,22 @@ version: '3.8' # this is obsolete and optional
 
 services:
 
-  solo:
+  dev:
     build:
       context: ../
-      dockerfile: ./build/solo.dockerfile
+      dockerfile: ./build/dev.dockerfile
       args:
         OS_VER: 3.18
         GO_VER: 1.22.1
         TMINT_VER: v0.35.9
-    image: ${TENDERMINT_NODE_IMAGE}
+    image: ${TENDERMINT_DEV_IMAGE}
+
+  prod:
+    build:
+      context: ../
+      dockerfile: ./build/prod.dockerfile
+      args:
+        OS_VER: 3.18
+        GO_VER: 1.22.1
+        TMINT_VER: v0.35.9
+    image: ${TENDERMINT_PROD_IMAGE}

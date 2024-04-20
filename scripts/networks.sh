@@ -1,7 +1,8 @@
 #!/bin/bash
 
 export SOLO_NETWORK="learn-tendermint_solo"
-export SOLO_NODE_CONTAINER="solo_container"
+export TENDERMINT_PROD_CONTAINER="solo_prod_container"
+export TENDERMINT_DEV_CONTAINER="solo_dev_container"
 
 function solo_network(){
     local cmd=$1

@@ -2,9 +2,9 @@ version: '3.4'
 
 services:
 
-  tendermint_node:
-    image: ${TENDERMINT_NODE_IMAGE}
-    container_name: ${SOLO_NODE_CONTAINER}
+  prod_node:
+    image: ${TENDERMINT_PROD_IMAGE}
+    container_name: ${TENDERMINT_PROD_CONTAINER}
     working_dir: /root
     command: sh ./provision.sh
     ports:

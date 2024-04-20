@@ -12,22 +12,26 @@ COMMAND=$1
 SUBCOMMAND1=$2
 
 case $COMMAND in
+    "clean")
+        solo_network clean
+        image clean
+        ;;
+    "dev")
+        docker run --name ${TENDERMINT_DEV_CONTAINER} -it --rm ${TENDERMINT_DEV_IMAGE} /bin/bash
+        ;;
     "image")
         image $SUBCOMMAND1
         ;;
     "solo")
         solo_network $SUBCOMMAND1
         ;;
-    "clean")
-        solo_network clean
-        image clean
-        ;;
     *)
         echo "$0 [command]
 
 command:
+    clean  containers and images
+    dev    shell into a developer container
     image  operation to build or clean images
-    solo   a network with solo tendermint node
-    clean  containers and images"
+    solo   a network with solo tendermint node"
         ;;
 esac
