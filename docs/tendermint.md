@@ -47,9 +47,27 @@ The JSON RPC protocol enable client applications to communicate (i.e. send trans
 
 ## `ABCI` application
 
-The ABCI application, not be confused with client applications, is an application to accompanying the tendermint core (see Figure 1).
+The ABCI application, not be confused with client applications, is an application to operate with the tendermint core (see Figure 1).
 
 ![Figure 1](../assets/img/tendermint-arch.png)<br>
-Figure 1: Tendermint architecture
+<u>Figure 1: A Tendermint node</u>
 
-The ABCI application provides business logic to process transactions sent to the core via the tendermint core.
+The ABCI application serves as the state machine or business logic component of a tendermint node.
+
+There are two ways of integrating ABCI application with the tendermint core.
+
+1. ABCI application integrated with tendermint core.
+1. ABCI application as a separate process.
+
+### ABCI application integrated with tendermint core
+
+This solution involves the use of the ABCI Go packages. This requires you to build the solution in Go.
+
+Please refer to the following items for reference.
+
+* [ABCI Go package](https://github.com/tendermint/tendermint/tree/v0.34.x/abci)
+* [ABCI specifiction](https://github.com/tendermint/tendermint/tree/v0.34.x/spec/abci)
+
+### ABCI application as a separate process
+
+In this configuration, the ABCI application runs as a separate process. The application and tendermint core communicate via sockets.
