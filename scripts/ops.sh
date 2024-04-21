@@ -16,9 +16,6 @@ case $COMMAND in
         solo_network clean
         image clean
         ;;
-    "dev")
-        docker run --name ${TENDERMINT_DEV_CONTAINER} -it --rm ${TENDERMINT_DEV_IMAGE} /bin/bash
-        ;;
     "image")
         image $SUBCOMMAND1
         ;;
@@ -30,8 +27,7 @@ case $COMMAND in
 
 command:
     clean  containers and images
-    dev    shell into a developer container
     image  operation to build or clean images
-    solo   a network with solo tendermint node"
+    solo   a network with a single tendermint node"
         ;;
 esac

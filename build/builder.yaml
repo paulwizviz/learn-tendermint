@@ -10,7 +10,7 @@ services:
         OS_VER: 3.18
         GO_VER: 1.22.1
         TMINT_VER: v0.35.9
-    image: ${TENDERMINT_DEV_IMAGE}
+    image: ${TMINT_DEV_IMAGE}
 
   prod:
     build:
@@ -20,4 +20,4 @@ services:
         OS_VER: 3.18
         GO_VER: 1.22.1
         TMINT_VER: v0.35.9
-    image: ${TENDERMINT_PROD_IMAGE}
+    image: ${TMINT_PROD_IMAGE}

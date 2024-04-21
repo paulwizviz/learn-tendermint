@@ -71,3 +71,7 @@ Please refer to the following items for reference.
 ### ABCI application as a separate process
 
 In this configuration, the ABCI application runs as a separate process. The application and tendermint core communicate via sockets.
+
+## Useful References
+
+* [Tendermint Explained — Bringing BFT-based PoS to the Public Blockchain Domain](https://blog.cosmos.network/tendermint-explained-bringing-bft-based-pos-to-the-public-blockchain-domain-f22e274a0fdb)

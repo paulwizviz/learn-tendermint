@@ -1,8 +1,10 @@
 #!/bin/bash
 
+export DEV_NETWORK="learn-tendermint_dev"
 export SOLO_NETWORK="learn-tendermint_solo"
-export TENDERMINT_PROD_CONTAINER="solo_prod_container"
-export TENDERMINT_DEV_CONTAINER="solo_dev_container"
+
+export TMINT_PROD_CONTAINER="tmint_prod_container"
+export TMINT_DEV_CONTAINER="tmint_dev_container"
 
 function solo_network(){
     local cmd=$1
@@ -10,12 +12,16 @@ function solo_network(){
         "start")
             docker-compose -f ./deployments/solo/docker-compose.yml up
             ;;
+        "shell")
+            docker-compose -f ./deployments/solo/docker-compose.yml exec -it dev_node /bin/bash
+            ;;
         "stop")
             docker-compose -f ./deployments/solo/docker-compose.yml down
             ;;
         "clean")
             docker-compose -f ./deployments/solo/docker-compose.yml down
-            docker rm -f ${SOLO_NODE_CONTAINER}
+            rm -rf ./deployments/solo/tmint
+            docker rm -f ${TMINT_DEV_CONTAINER}
             docker network rm ${SOLO_NETWORK}
             ;;
         *)
