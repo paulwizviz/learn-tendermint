@@ -1,31 +1,26 @@
 # Tendermint
 
-The term `tendermint` is confusing; it refers to many things depending on your point of view. Let's unpack what that term means.
+First, Tendermint and Cosmos or Cosmos SDK belongs to the same family of software tools. We won't elaborate on the differences between the tools. You can read the difference in [Tendermint & Cosmos SDK Demystified](https://medium.com/coinmonks/tendermint-cosmos-sdk-demystified-47385cf77cf6). For now, think of Tendermint as the basic building block of Cosmos. We'll discuss the features of Cosmos details in other section of this project.
 
-* Tendermint vs Cosmos
-* Tendermint from a developer's perspective
-
-The comparison between Tendermint vs Cosmos discussed in [Tendermint & Cosmos SDK Demystified](https://medium.com/coinmonks/tendermint-cosmos-sdk-demystified-47385cf77cf6). The subject of CosmosSDK is left for discuss later. For now, just think of CosmosSDK as a superset of Tendermint.
-
-Fron a developer's perspective, Tendermint is:
+Second, the term `tendermint` encompass several things, and these are:
 
 * an open source Go based projects;
-* a collecion of tools to help you develop replicated application (i.e. the basis for Layer 1 of a blockchain stack);
-* an orchestrator to instantiate practical Byzantine Fault Tolerant (pBFT) consensus engine;
-* a library for the creation of Application BlockChain Interface (ABCI) applications.
+* a practical Byzantine Fault Tolerant (pBFT) consensus engine - i.e. the Tendermint Core;
+* a library for the creation of Application Blockchain Interface (ABCI) applications.
 
-## Tendermint source code
+These elements combined to help you developed replicated state machines or Layer 1 of a blockchain protocol.
 
-The project\s source code is [(https://github.com/tendermint/tendermint.git](https://github.com/tendermint/tendermint.git).
+## Tendermint Source Code
 
-From the source code, you derived:
+Tendermint's source code is located in [(https://github.com/tendermint/tendermint.git](https://github.com/tendermint/tendermint.git).
 
-* a `ABCI-CLI` tool;
-* an orchesttration tool named `tendermint` to execute an engine known as `tendermint core`;
-* a series of cli tools. also known as `tendermint`, to diagnose a running `tendermint core`;
-* a set of Go based packages (or libraries) to help you build `ABCI` application.
+You use the source to generate:
 
-## Tendermint core
+* an orchestration tool named `tendermint` to manage a running `tendermint core`;
+* a Go based packages (or libraries) to help you build `ABCI` application;
+* an `ABCI-CLI` tool to help you debug ABCI applications.
+
+## Tendermint Core
 
 The tendermint core is an executable process comprise of these elements:
 
@@ -35,7 +30,9 @@ The tendermint core is an executable process comprise of these elements:
 
 ### The pBFT consensus engine
 
-The pBFT consensus engine ensures that transactions sent to a network of nodes, and all nodes record the transactions in the right order. The pBFT consensus algorithm is described in [what is tendermint?](https://docs.tendermint.com/v0.34/introduction/what-is-tendermint.html).
+The pBFT consensus engine ensures that transactions sent to a network of nodes are recorded in the right order. 
+
+The pBFT consensus algorithm is described in [what is tendermint?](https://docs.tendermint.com/v0.34/introduction/what-is-tendermint.html).
 
 ### The P2P protocol
 
@@ -47,26 +44,19 @@ The JSON RPC protocol enable client applications to communicate (i.e. send trans
 
 ## `ABCI` application
 
-The ABCI application, not be confused with client applications, is an application to operate with the tendermint core (see Figure 1).
+The ABCI application, not be confused with client applications is something you create to serve as a state machine. It is similar, but entirely, to a smart contract execution engine. The relationship between an ABCI application and tendermint core is summarised in Figure 1.
 
 ![Figure 1](../assets/img/tendermint-arch.png)<br>
 <u>Figure 1: A Tendermint node</u>
 
-The ABCI application serves as the state machine or business logic component of a tendermint node.
+An ABCI application interact with the tendermint core either as:
 
-There are two ways of integrating ABCI application with the tendermint core.
-
-1. ABCI application integrated with tendermint core.
-1. ABCI application as a separate process.
+1. an integrated process with tendermint core.
+1. a separate process.
 
 ### ABCI application integrated with tendermint core
 
-This solution involves the use of the ABCI Go packages. This requires you to build the solution in Go.
-
-Please refer to the following items for reference.
-
-* [ABCI Go package](https://github.com/tendermint/tendermint/tree/v0.34.x/abci)
-* [ABCI specifiction](https://github.com/tendermint/tendermint/tree/v0.34.x/spec/abci)
+You build this type of application using ABCI Go package [ABCI Go package](https://github.com/tendermint/tendermint/tree/v0.34.x/abci). Please refer to the [ABCI specification](https://github.com/tendermint/tendermint/tree/v0.34.x/spec/abci) for more information.
 
 ### ABCI application as a separate process
 

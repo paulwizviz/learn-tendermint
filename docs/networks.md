@@ -1,23 +1,22 @@
 # Networks
 
-In this section, we'll examine the different ways of deploying Tendermint core to form a network.
+You will find several locally executable networks in this project. The networks are intended for you to learn about the operations behind tendermint.
 
 ## Solo
 
-In this project, you will find a network with a single tendermint core (solo) node.
+The solo network has one running tendermint node in a setup intended for you to experiment with configuration. The node is based on docker image derived from this [dockerfile](../build/solo.dockerfile). In the dockerfile an executable `tendermint` is derived from this [source code](https://github.com/tendermint/tendermint.git).
 
-The solo node is created from this [docker image](../build/solo.dockerfile). The executable tendermint is to derived from this [source code](https://github.com/tendermint/tendermint.git).
+The network configuration is found in this [docker compose file](../deployments/solo/docker-compose.yml).
 
-The network configuration is found in this [docker compose file](../deployments/solo/docker-compose.yml) for a working example.
+To experiment with the network, use the scripts provided and run the following commands.
 
-To run the solo network follow this steps:
+* `./scripts/ops.sh image build` to create the solo node.
+* `./scripts/ops.sh network solo start` to activate the network.
+* `./scripts/ops.sh network solo stop` to de-activate the network.
 
-* STEP 1 - Build a solo docker image by running this command `./scripts/ops.sh image build`
-* STEP 2 - Start the network by running this command `./scripts/ops.sh network solo start`
+You will also find example scripts and application (see ) using curl to simulate a client application.
 
-Use the solo node to learn how interact with tendermint. You find several examples to see how the interactions works:
-
-* [ex 1](../examples/ex1/txn.sh), demonstrating the use of `curl`, In this example, you will use curl to:
+* [ex 1](../examples/ex1/txn.sh) is a client application based on `curl` to:
     * Get status of the solo node.
     * Send a transaction.
     * Query the node.
