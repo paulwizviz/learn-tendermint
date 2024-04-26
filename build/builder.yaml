@@ -9,7 +9,7 @@ services:
       args:
         OS_VER: 3.18
         GO_VER: 1.22.1
-        TMINT_VER: v0.35.9
+        TMINT_VER: v0.34.24
     image: ${TMINT_DEV_IMAGE}
 
   prod:
@@ -19,5 +19,5 @@ services:
       args:
         OS_VER: 3.18
         GO_VER: 1.22.1
-        TMINT_VER: v0.35.9
+        TMINT_VER: v0.34.24
     image: ${TMINT_PROD_IMAGE}
