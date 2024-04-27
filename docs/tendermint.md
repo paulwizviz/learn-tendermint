@@ -56,6 +56,17 @@ An ABCI application interact with the tendermint core either as:
 1. an integrated process with tendermint core.
 1. a separate process.
 
+### ABCI application modus operandi
+
+Part of the ABCI application is a state engine. This could be in the form of a Key-Value store.
+
+When a transaction is sent to tendermint core, the transaction is sent to ABCI application member function named `CheckTx`. This method is responsible for validating transactions -- i.e. you implement this logic.
+
+When tendermint core initiate a block, it is transferred to the ABCI application member function named `BeginBlock` and this include logic to initiate the start of a state session in the state machine. The traction is then stored in the current session of state machine via the member function named `DeliverTx`. The `EndBlock` member function is called for one more check. At the `Commit` signal the block is committed. 
+
+When a query operation is sent to tendermint core, the ABCI application member function `Query` is called.
+
+
 ### ABCI application integrated with tendermint core
 
 You build this type of application using ABCI Go package [ABCI Go package](https://github.com/tendermint/tendermint/tree/v0.34.x/abci). Please refer to the [ABCI specification](https://github.com/tendermint/tendermint/tree/v0.34.x/spec/abci) for more information.
