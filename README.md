@@ -8,6 +8,6 @@ This project discuss and examine, through working examples, the inner workings a
 
 ## Disclaimer
 
-The content of this project is intended for educational purposes only.
+This project is intended for educational purposes only.
 
 Unless otherwise stated, any opinion expressed in this project belongs to the contributor(s).
