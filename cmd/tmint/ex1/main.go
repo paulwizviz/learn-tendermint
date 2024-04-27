@@ -7,6 +7,7 @@ import (
 	"path/filepath"
 	"syscall"
 
+	"github.com/dgraph-io/badger"
 	"github.com/tendermint/tendermint/abci/types"
 	"github.com/tendermint/tendermint/config"
 	"github.com/tendermint/tendermint/libs/log"
@@ -16,7 +17,16 @@ import (
 	"github.com/tendermint/tendermint/proxy"
 )
 
-type App struct{}
+type App struct {
+	db           *badger.DB
+	currentBatch *badger.Txn
+}
+
+func NewApp(db *badger.DB) *App {
+	return &App{
+		db: db,
+	}
+}
 
 func (App) Info(req types.RequestInfo) types.ResponseInfo {
 	fmt.Println(req)
@@ -101,7 +111,14 @@ func main() {
 		os.Exit(1)
 	}
 
-	app := App{}
+	db, err := badger.Open(badger.DefaultOptions("/tmp/badger"))
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "failed to open badger db: %v", err)
+		os.Exit(1)
+	}
+	defer db.Close()
+
+	app := NewApp(db)
 
 	n, err := node.NewNode(
 		cfg,

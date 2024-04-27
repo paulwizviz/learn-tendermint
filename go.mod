@@ -3,11 +3,13 @@ module learn-tendermint
 go 1.22.1
 
 require (
+	github.com/dgraph-io/badger v1.6.2
 	github.com/syndtr/goleveldb v1.0.1-0.20210819022825-2ae1ddf74ef7
 	github.com/tendermint/tendermint v0.34.24
 )
 
 require (
+	github.com/AndreasBriese/bbloom v0.0.0-20190825152654-46b345b51c96 // indirect
 	github.com/DataDog/zstd v1.4.1 // indirect
 	github.com/Workiva/go-datastructures v1.0.53 // indirect
 	github.com/beorn7/perks v1.0.1 // indirect
