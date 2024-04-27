@@ -23,5 +23,5 @@ RUN git clone --recursive --branch ${TMINT_VER} https://github.com/tendermint/te
 
 RUN go mod download && \
     go mod tidy &&\
-    go build -o ./build/ex1 ./cmd/ex1 && \
+    go build -o ./build/ex1 ./cmd/tmint/ex1 && \
     cp ./build/ex1 /usr/local/bin/ex1

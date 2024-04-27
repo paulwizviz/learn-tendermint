@@ -1,5 +1,7 @@
 # Tendermint
 
+
+
 First, Tendermint and Cosmos or Cosmos SDK belongs to the same family of software tools. We won't elaborate on the differences between the tools. You can read the difference in [Tendermint & Cosmos SDK Demystified](https://medium.com/coinmonks/tendermint-cosmos-sdk-demystified-47385cf77cf6). For now, think of Tendermint as the basic building block of Cosmos. We'll discuss the features of Cosmos details in other section of this project.
 
 Second, the term `tendermint` encompass several things, and these are:
@@ -58,9 +60,36 @@ An ABCI application interact with the tendermint core either as:
 
 You build this type of application using ABCI Go package [ABCI Go package](https://github.com/tendermint/tendermint/tree/v0.34.x/abci). Please refer to the [ABCI specification](https://github.com/tendermint/tendermint/tree/v0.34.x/spec/abci) for more information.
 
+You will also find an example of a native ABCI app [here](../cmd/tmint/ex1/main.go). This is incorporated into an example in solo network [here](../deployments/tmint/solo.yml) which is based on this [dockerfile](../build/tmint/dev.dockerfile).
+
 ### ABCI application as a separate process
 
 In this configuration, the ABCI application runs as a separate process. The application and tendermint core communicate via sockets.
+
+## Working networks
+
+You will find a collection of networks for you to conduct experiments.
+
+* Solo network
+* Cluster network
+
+### Solo network
+
+The solo network has one running tendermint node in a setup intended for you to experiment. The node is based on docker image derived from this [dockerfile](../build/tendermint/dev.dockerfile). In the dockerfile an executable `tendermint` is derived from this [source code](https://github.com/tendermint/tendermint.git).
+
+You will find a docker-compose network comprising a single node. The configuration is [here](../deployments/tmint/solo.yml).
+
+To experiment with the network, use the scripts provided and run the following commands.
+
+* `./scripts/tendermint.sh image build` to create the solo node.
+* `./scripts/ops.sh solo start` to activate the network.
+* `./scripts/ops.sh solo stop` to de-activate the network.
+
+You will also find example scripts and application using [curl](../examples/tmint/curl/txn.sh) to simulate a client application. Use the client to:
+
+* Get status of the solo node.
+* Send a transaction.
+* Query the node.
 
 ## Useful References
 

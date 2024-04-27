@@ -12,7 +12,7 @@ services:
     volumes:
       - ./provision.sh:/root/provision.sh
     networks:
-      - local
+      - net
 
   # prod_node:
   #   image: ${TMINT_PROD_IMAGE}
@@ -27,5 +27,5 @@ services:
   #     - prod
 
 networks: 
-  local:
+  net:
     name: ${SOLO_NETWORK}

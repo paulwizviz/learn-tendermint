@@ -4,8 +4,8 @@ services:
 
   dev:
     build:
-      context: ../
-      dockerfile: ./build/dev.dockerfile
+      context: ../..
+      dockerfile: ./build/tmint/dev.dockerfile
       args:
         OS_VER: 3.18
         GO_VER: 1.22.1
@@ -14,8 +14,8 @@ services:
 
   prod:
     build:
-      context: ../
-      dockerfile: ./build/prod.dockerfile
+      context: ../..
+      dockerfile: ./build/tmint/prod.dockerfile
       args:
         OS_VER: 3.18
         GO_VER: 1.22.1
