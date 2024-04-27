@@ -63,8 +63,8 @@ func (App) InitChain(req types.RequestInitChain) types.ResponseInitChain {
 	return types.ResponseInitChain{}
 }
 
-func (App) BeginBlock(req types.RequestBeginBlock) types.ResponseBeginBlock {
-	fmt.Println(req)
+func (a *App) BeginBlock(req types.RequestBeginBlock) types.ResponseBeginBlock {
+	a.currentBatch = a.db.NewTransaction(true) // Starts a DB session
 	return types.ResponseBeginBlock{}
 }
 
