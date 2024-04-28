@@ -71,11 +71,13 @@ When a query operation is sent to tendermint core, the ABCI application member f
 
 You build this type of application using ABCI Go package [ABCI Go package](https://github.com/tendermint/tendermint/tree/v0.34.x/abci). Please refer to the [ABCI specification](https://github.com/tendermint/tendermint/tree/v0.34.x/spec/abci) for more information.
 
-You will also find an example of a native ABCI app [here](../cmd/tmint/ex1/main.go). This is incorporated into an example in solo network [here](../deployments/tmint/solo.yml) which is based on this [dockerfile](../build/tmint/dev.dockerfile).
+You will find an example of a native ABCI app [here](../cmd/tmint/ex1/main.go).
 
 ### ABCI application as a separate process
 
-In this configuration, the ABCI application runs as a separate process. The application and tendermint core communicate via sockets.
+In this configuration, the ABCI application runs in a separate process. The application and tendermint core communicate via sockets.
+
+You will find an example of a socket-base ABCI app [here](../cmd/tmint/ex2/main.go).
 
 ## Working networks
 
@@ -86,15 +88,15 @@ You will find a collection of networks for you to conduct experiments.
 
 ### Solo network
 
-The solo network has one running tendermint node in a setup intended for you to experiment. The node is based on docker image derived from this [dockerfile](../build/tendermint/dev.dockerfile). In the dockerfile an executable `tendermint` is derived from this [source code](https://github.com/tendermint/tendermint.git).
+The solo network has one running tendermint node in a setup intended for you to experiment. The node is based on docker image derived from this [dockerfile](../build/tendermint/ex.dockerfile). In the dockerfile an executable `tendermint` is derived from this [source code](https://github.com/tendermint/tendermint.git).
 
 You will find a docker-compose network comprising a single node. The configuration is [here](../deployments/tmint/solo.yml).
 
 To experiment with the network, use the scripts provided and run the following commands.
 
 * `./scripts/tendermint.sh image build` to create the solo node.
-* `./scripts/ops.sh solo start` to activate the network.
-* `./scripts/ops.sh solo stop` to de-activate the network.
+* `./scripts/tendermint.sh solo start:ex` to activate the network.
+* `./scripts/tendermint.sh solo stop:ex` to de-activate the network.
 
 You will also find example scripts and application using [curl](../examples/tmint/curl/txn.sh) to simulate a client application. Use the client to:
 

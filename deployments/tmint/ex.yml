@@ -1,0 +1,19 @@
+version: '3.4'
+
+services:
+
+  ex_node:
+    image: ${TMINT_EX_IMAGE}
+    container_name: ${TMINT_EX_CONTAINER}
+    working_dir: /root
+    command: sh provision.sh ex1
+    ports:
+      - "36656-36657:26656-26657"
+    volumes:
+      - ./provision.sh:/root/provision.sh
+    networks:
+      - net
+
+networks: 
+  net:
+    name: ${TMINT_EX_NETWORK}

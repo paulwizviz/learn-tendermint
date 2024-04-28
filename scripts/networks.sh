@@ -1,34 +1,35 @@
 #!/bin/bash
 
-export SOLO_NETWORK="learn-cosmos_solo"
+export TMINT_EX_NETWORK="learn-cosmos_ex"
 
-export TMINT_DEV_CONTAINER="tmint_dev-container"
+export TMINT_EX_CONTAINER="tmint_ex-container"
+
 export TMINT_PROD_CONTAINER="tmint_prod-container"
 
 function solo_network(){
     local cmd=$1
     case $cmd in
-        "start")
-            docker-compose -f ./deployments/tmint/solo.yml up
-            ;;
-        "shell")
-            docker-compose -f ./deployments/tmint/solo.yml exec -it dev_node /bin/bash
-            ;;
-        "stop")
-            docker-compose -f ./deployments/tmint/solo.yml down
-            ;;
         "clean")
-            docker-compose -f ./deployments/tmint/solo.yml down
-            docker rm -f ${TMINT_DEV_CONTAINER}
-            docker network rm ${SOLO_NETWORK}
+            docker-compose -f ./deployments/tmint/ex.yml down
+            docker network rm ${TMINT_EX_NETWORK}
+            ;;
+        "start:ex")
+            docker-compose -f ./deployments/tmint/ex.yml up
+            ;;
+        "stop:ex")
+            docker-compose -f ./deployments/tmint/ex.yml down
+            ;;
+        "shell:ex")
+            docker-compose -f ./deployments/tmint/ex.yml exec -it ex_node /bin/bash
             ;;
         *)
             echo "Usage: $0 solo [commands]
             
 commands:
-    clean  solo containers and network
-    start  solo network
-    stop   solo network"
+    clean     solo containers and network
+    start:ex  solo experimental network
+    stop:ex   solo experimental network
+    shell:ex  solo experimental network"
             ;;
     esac
 }

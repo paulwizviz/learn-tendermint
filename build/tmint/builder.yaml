@@ -2,22 +2,43 @@ version: '3.8' # this is obsolete and optional
 
 services:
 
-  dev:
+  base:
     build:
       context: ../..
-      dockerfile: ./build/tmint/dev.dockerfile
+      dockerfile: ./build/tmint/base.dockerfile
       args:
         OS_VER: 3.18
         GO_VER: 1.22.1
         TMINT_VER: v0.34.24
-    image: ${TMINT_DEV_IMAGE}
+    image: ${TMINT_BASE_IMAGE}
 
-  prod:
+  ex:
     build:
       context: ../..
-      dockerfile: ./build/tmint/prod.dockerfile
+      dockerfile: ./build/tmint/ex.dockerfile
       args:
         OS_VER: 3.18
         GO_VER: 1.22.1
-        TMINT_VER: v0.34.24
-    image: ${TMINT_PROD_IMAGE}
+        BASE_IMAGE: ${TMINT_BASE_IMAGE}
+    image: ${TMINT_EX_IMAGE}
+
+
+  # ex1:
+  #   build:
+  #     context: ../..
+  #     dockerfile: ./build/tmint/ex1.dockerfile
+  #     args:
+  #       OS_VER: 3.18
+  #       GO_VER: 1.22.1
+  #       BASE_IMAGE: ${TMINT_BASE_IMAGE}
+  #   image: ${TMINT_EX1_IMAGE}
+
+  # ex2:
+  #   build:
+  #     context: ../..
+  #     dockerfile: ./build/tmint/ex2.dockerfile
+  #     args:
+  #       OS_VER: 3.18
+  #       GO_VER: 1.22.1
+  #       BASE_IMAGE: ${TMINT_BASE_IMAGE}
+  #   image: ${TMINT_EX2_IMAGE}
