@@ -1,8 +1,8 @@
 #!/bin/bash
 
 export TMINT_EX_NETWORK="learn-cosmos_ex"
-
 export TMINT_EX_CONTAINER="tmint_ex-container"
+export TMINT_EX_VOL_ONE="tmint_vol-one"
 
 export TMINT_PROD_CONTAINER="tmint_prod-container"
 
@@ -11,6 +11,7 @@ function solo_network(){
     case $cmd in
         "clean")
             docker-compose -f ./deployments/tmint/ex.yml down
+            docker volume rm ${TMINT_EX_VOL_ONE}
             docker network rm ${TMINT_EX_NETWORK}
             ;;
         "start:ex")
@@ -20,7 +21,7 @@ function solo_network(){
             docker-compose -f ./deployments/tmint/ex.yml down
             ;;
         "shell:ex")
-            docker-compose -f ./deployments/tmint/ex.yml exec -it ex_node /bin/bash
+            docker-compose -f ./deployments/tmint/ex.yml exec -it ex_node /bin/sh
             ;;
         *)
             echo "Usage: $0 solo [commands]

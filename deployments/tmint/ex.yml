@@ -8,12 +8,17 @@ services:
     working_dir: /root
     command: sh provision.sh ex1
     ports:
-      - "36656-36657:26656-26657"
+      - "26656-26657:26656-26657"
     volumes:
       - ./provision.sh:/root/provision.sh
+      - vol:/var/abci/
     networks:
       - net
 
 networks: 
   net:
     name: ${TMINT_EX_NETWORK}
+
+volumes:
+  vol:
+    name: ${TMINT_EX_VOL_ONE}
