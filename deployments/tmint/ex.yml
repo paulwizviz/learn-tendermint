@@ -11,7 +11,7 @@ services:
       - "26656-26657:26656-26657"
     volumes:
       - ./provision.sh:/root/provision.sh
-      - vol:/var/abci/
+      - ./tmp:/var/abci/
     networks:
       - net
 

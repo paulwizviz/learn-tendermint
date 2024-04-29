@@ -21,24 +21,3 @@ services:
         GO_VER: 1.22.1
         BASE_IMAGE: ${TMINT_BASE_IMAGE}
     image: ${TMINT_EX_IMAGE}
-
-
-  # ex1:
-  #   build:
-  #     context: ../..
-  #     dockerfile: ./build/tmint/ex1.dockerfile
-  #     args:
-  #       OS_VER: 3.18
-  #       GO_VER: 1.22.1
-  #       BASE_IMAGE: ${TMINT_BASE_IMAGE}
-  #   image: ${TMINT_EX1_IMAGE}
-
-  # ex2:
-  #   build:
-  #     context: ../..
-  #     dockerfile: ./build/tmint/ex2.dockerfile
-  #     args:
-  #       OS_VER: 3.18
-  #       GO_VER: 1.22.1
-  #       BASE_IMAGE: ${TMINT_BASE_IMAGE}
-  #   image: ${TMINT_EX2_IMAGE}

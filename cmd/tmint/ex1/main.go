@@ -18,78 +18,81 @@ import (
 )
 
 type App struct {
-	db           *badger.DB
-	currentBatch *badger.Txn
+	db *badger.DB
+	//currentBatch *badger.Txn
+	logger log.Logger
 }
 
-func NewApp(db *badger.DB) *App {
+func NewApp(db *badger.DB, logger log.Logger) *App {
 	return &App{
-		db: db,
+		db:     db,
+		logger: logger,
 	}
 }
 
-func (App) Info(req types.RequestInfo) types.ResponseInfo {
-	fmt.Println(req)
+func (a App) Info(req types.RequestInfo) types.ResponseInfo {
+	a.logger.Info(fmt.Sprintf("Request: %v", req))
 	return types.ResponseInfo{}
 }
 
-func (App) SetOption(req types.RequestSetOption) types.ResponseSetOption {
-	fmt.Println(req)
+func (a App) SetOption(req types.RequestSetOption) types.ResponseSetOption {
+	a.logger.Info(fmt.Sprintf("Request: %v", req))
 	return types.ResponseSetOption{}
 }
 
-func (App) DeliverTx(req types.RequestDeliverTx) types.ResponseDeliverTx {
-	fmt.Println(req)
+func (a App) DeliverTx(req types.RequestDeliverTx) types.ResponseDeliverTx {
+	a.logger.Info(fmt.Sprintf("--DeliverTx-- Request: %v", req))
 	return types.ResponseDeliverTx{Code: 0}
 }
 
-func (App) CheckTx(req types.RequestCheckTx) types.ResponseCheckTx {
-	fmt.Println(req)
+func (a App) CheckTx(req types.RequestCheckTx) types.ResponseCheckTx {
+	a.logger.Info(fmt.Sprintf("--CheckTx-- Request: %v", req))
 	return types.ResponseCheckTx{Code: 0}
 }
 
-func (App) Commit() types.ResponseCommit {
-	fmt.Println("--Commit--")
+func (a App) Commit() types.ResponseCommit {
+	a.logger.Info("--Commit--")
 	return types.ResponseCommit{}
 }
 
-func (App) Query(req types.RequestQuery) types.ResponseQuery {
-	fmt.Println(req)
+func (a App) Query(req types.RequestQuery) types.ResponseQuery {
+	a.logger.Info(fmt.Sprintf("Request: %v", req))
 	return types.ResponseQuery{Code: 0}
 }
 
-func (App) InitChain(req types.RequestInitChain) types.ResponseInitChain {
-	fmt.Println(req)
+func (a App) InitChain(req types.RequestInitChain) types.ResponseInitChain {
+	a.logger.Info(fmt.Sprintf("Request: %v", req))
 	return types.ResponseInitChain{}
 }
 
-func (a *App) BeginBlock(req types.RequestBeginBlock) types.ResponseBeginBlock {
-	a.currentBatch = a.db.NewTransaction(true) // Starts a DB session
+func (a App) BeginBlock(req types.RequestBeginBlock) types.ResponseBeginBlock {
+	a.logger.Info(fmt.Sprintf("--BeginBlock-- Request: %v", req))
+	//a.currentBatch = a.db.NewTransaction(true) // Starts a DB session
 	return types.ResponseBeginBlock{}
 }
 
-func (App) EndBlock(req types.RequestEndBlock) types.ResponseEndBlock {
-	fmt.Println(req)
+func (a App) EndBlock(req types.RequestEndBlock) types.ResponseEndBlock {
+	a.logger.Info(fmt.Sprintf("--EndBlock-- Request: %v", req))
 	return types.ResponseEndBlock{}
 }
 
-func (App) ListSnapshots(req types.RequestListSnapshots) types.ResponseListSnapshots {
-	fmt.Println(req)
+func (a App) ListSnapshots(req types.RequestListSnapshots) types.ResponseListSnapshots {
+	a.logger.Info(fmt.Sprintf("Request: %v", req))
 	return types.ResponseListSnapshots{}
 }
 
-func (App) OfferSnapshot(req types.RequestOfferSnapshot) types.ResponseOfferSnapshot {
-	fmt.Println(req)
+func (a App) OfferSnapshot(req types.RequestOfferSnapshot) types.ResponseOfferSnapshot {
+	a.logger.Info(fmt.Sprintf("Request: %v", req))
 	return types.ResponseOfferSnapshot{}
 }
 
-func (App) LoadSnapshotChunk(req types.RequestLoadSnapshotChunk) types.ResponseLoadSnapshotChunk {
-	fmt.Println(req)
+func (a App) LoadSnapshotChunk(req types.RequestLoadSnapshotChunk) types.ResponseLoadSnapshotChunk {
+	a.logger.Info(fmt.Sprintf("Request: %v", req))
 	return types.ResponseLoadSnapshotChunk{}
 }
 
-func (App) ApplySnapshotChunk(req types.RequestApplySnapshotChunk) types.ResponseApplySnapshotChunk {
-	fmt.Println(req)
+func (a App) ApplySnapshotChunk(req types.RequestApplySnapshotChunk) types.ResponseApplySnapshotChunk {
+	a.logger.Info(fmt.Sprintf("Request: %v", req))
 	return types.ResponseApplySnapshotChunk{}
 }
 
@@ -97,7 +100,10 @@ func main() {
 	cfgFile := "/root/.tendermint/config/config.toml"
 	cfg := config.DefaultConfig()
 	cfg.RootDir = filepath.Dir(filepath.Dir(cfgFile))
-	fmt.Println(cfg.ProxyApp)
+
+	cfg.Consensus.CreateEmptyBlocks = false
+	cfg.RPC.ListenAddress = "tcp://0.0.0.0:26657"
+
 	logger := log.NewTMLogger(log.NewSyncWriter(os.Stdout))
 
 	pv := privval.LoadFilePV(
@@ -118,7 +124,7 @@ func main() {
 	}
 	defer db.Close()
 
-	app := NewApp(db)
+	app := NewApp(db, logger)
 
 	n, err := node.NewNode(
 		cfg,
