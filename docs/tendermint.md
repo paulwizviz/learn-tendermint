@@ -46,36 +46,46 @@ The JSON RPC protocol enable client applications to communicate (i.e. send trans
 
 ## `ABCI` application
 
-The ABCI application, not be confused with client applications is something you create to serve as a state machine. It is similar, but entirely, to a smart contract execution engine. The relationship between an ABCI application and tendermint core is summarised in Figure 1.
+The ABCI application, not be confused with client applications is something you create to serve as a state machine. An ABCI application interact with the tendermint core either as:
 
-![Figure 1](../assets/img/tendermint-arch.png)<br>
-<u>Figure 1: A Tendermint node</u>
-
-An ABCI application interact with the tendermint core either as:
-
-1. an integrated process with tendermint core.
-1. a separate process.
+* an integrated process with tendermint core.
+* a separate process.
 
 ### ABCI application modus operandi
 
-Part of the ABCI application is a state engine. This could be in the form of a Key-Value store.
+The ABCI application is the state machine where you implement a number of interfaces. Please refer to [official specification](https://github.com/tendermint/spec/tree/95cf253b6df623066ff7cd4074a94e7a3f147c7a/spec/abci) For current discussion, we focus on these:
 
-When a transaction is sent to tendermint core, the transaction is sent to ABCI application member function named `CheckTx`. This method is responsible for validating transactions -- i.e. you implement this logic.
+* `CheckTx`
+* `BeginBlock`
+* `DeliverTx`
+* `EndBlock`
+* `Commit`
 
-When tendermint core initiate a block, it is transferred to the ABCI application member function named `BeginBlock` and this include logic to initiate the start of a state session in the state machine. The traction is then stored in the current session of state machine via the member function named `DeliverTx`. The `EndBlock` member function is called for one more check. At the `Commit` signal the block is committed. 
+To mutate the ABCI application, you sent a transaction like this: `<URL root>/broadcast_tx_commit?tx="name=satoshi"` -- e.g. using curl. Please refer to the [official transaction format](https://docs.tendermint.com/v0.34/rpc/)
 
-When a query operation is sent to tendermint core, the ABCI application member function `Query` is called.
+When a transaction is sent to tendermint core, it calls the ABCI application `CheckTx`. You implement this function to validate transactions -- e.g. validate transaction signature, etc.
 
+When tendermint core initiate a block, it calls ABCI application member function named `BeginBlock`. You implement this interface to initiate the start of a state session. 
+
+On completion of the `BeginBlock`, the core calls the function named `DeliverTx`. On completion of that function the core calls `EndBlock` for one more check. Thereafter the `Commit` is called and the state machine is committed. 
+
+When a query transaction (e.g. `/abci_query?data="name"`) is sent to tendermint core, the ABCI application member function `Query` is called.
 
 ### ABCI application integrated with tendermint core
 
-You build this type of application using ABCI Go package [ABCI Go package](https://github.com/tendermint/tendermint/tree/v0.34.x/abci). Please refer to the [ABCI specification](https://github.com/tendermint/tendermint/tree/v0.34.x/spec/abci) for more information.
+You build this type of application using ABCI Go package [ABCI Go package](https://github.com/tendermint/tendermint/tree/v0.34.x/abci). Please refer to the [ABCI specification](https://github.com/tendermint/tendermint/tree/v0.34.x/spec/abci) for more information. The relationship between ABCI application and Tendermint core (see Figure 1).
+
+![Figure 1](../assets/img/tmint-native-abci.png)</br>
+<b>Figure 1:</b> ABCI application package as a single executable with tendermint core.
 
 You will find an example of a native ABCI app [here](../cmd/tmint/ex1/main.go).
 
 ### ABCI application as a separate process
 
-In this configuration, the ABCI application runs in a separate process. The application and tendermint core communicate via sockets.
+In this configuration, the ABCI application runs in a separate process. The application and tendermint core communicate via sockets (see Figure 2).
+
+![Figure 2](../assets/img/tmint-socket-abci.png)</br>
+<b>Figure 2:</b> Socket based ABCI application
 
 You will find an example of a socket-base ABCI app [here](../cmd/tmint/ex2/main.go).
 
