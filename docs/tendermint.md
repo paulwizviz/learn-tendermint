@@ -98,15 +98,7 @@ You will find a collection of networks for you to conduct experiments.
 
 ### Solo network
 
-The solo network has one running tendermint node in a setup intended for you to experiment. The node is based on docker image derived from this [dockerfile](../build/tendermint/ex.dockerfile). In the dockerfile an executable `tendermint` is derived from this [source code](https://github.com/tendermint/tendermint.git).
-
-You will find a docker-compose network comprising a single node. The configuration is [here](../deployments/tmint/solo.yml).
-
-To experiment with the network, use the scripts provided and run the following commands.
-
-* `./scripts/tendermint.sh image build` to create the solo node.
-* `./scripts/tendermint.sh solo start:ex` to activate the network.
-* `./scripts/tendermint.sh solo stop:ex` to de-activate the network.
+TODO
 
 You will also find example scripts and application using [curl](../examples/tmint/curl/txn.sh) to simulate a client application. Use the client to:
 

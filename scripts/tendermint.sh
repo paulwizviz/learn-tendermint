@@ -15,19 +15,19 @@ case $COMMAND in
     "image")
         tmint_image $SUBCOMMAND1
         ;;
-    "solo")
-        solo_network $SUBCOMMAND1
+    "solo:ex1")
+        solo_ex1_network $SUBCOMMAND1
         ;;
     "clean")
-        solo_network clean
+        solo_ex1_network clean
         tmint_image clean
         ;;
     *)
         echo "Usage: $0 [command]
         
 command:
-    image  build and clean images
-    solo   network operations
-    clean  removes all project artefacts"
+    image     build and clean images
+    solo:ex1  network operations
+    clean     removes all project artefacts"
     ;;
 esac

@@ -1,36 +1,36 @@
 #!/bin/bash
 
-export TMINT_EX_NETWORK="learn-cosmos_ex"
-export TMINT_EX_CONTAINER="tmint_ex-container"
-export TMINT_EX_VOL_ONE="tmint_vol-one"
+export TMINT_EX1_NETWORK="tmint_ex1-network"
+export TMINT_EX1_CONTAINER="tmint_ex1-node"
+export TMINT_EX1_VOL_ONE="tmint_ex1-vol"
 
 export TMINT_PROD_CONTAINER="tmint_prod-container"
 
-function solo_network(){
+function solo_ex1_network(){
     local cmd=$1
     case $cmd in
         "clean")
-            docker-compose -f ./deployments/tmint/ex.yml down
-            docker volume rm ${TMINT_EX_VOL_ONE}
-            docker network rm ${TMINT_EX_NETWORK}
+            docker-compose -f ./deployments/tmint/solo_ex1.yml down
+            docker volume rm ${TMINT_EX1_VOL_ONE}
+            docker network rm ${TMINT_EX1_NETWORK}
             ;;
-        "start:ex")
-            docker-compose -f ./deployments/tmint/ex.yml up
+        "start")
+            docker-compose -f ./deployments/tmint/solo_ex1.yml up
             ;;
-        "stop:ex")
-            docker-compose -f ./deployments/tmint/ex.yml down
+        "stop")
+            docker-compose -f ./deployments/tmint/solo_ex1.yml down
             ;;
-        "shell:ex")
-            docker-compose -f ./deployments/tmint/ex.yml exec -it ex_node /bin/sh
+        "shell")
+            docker-compose -f ./deployments/tmint/solo_ex1.yml exec -it ex_node /bin/sh
             ;;
         *)
-            echo "Usage: $0 solo [commands]
+            echo "Usage: $0 solo:ex1 [commands]
             
 commands:
-    clean     solo containers and network
-    start:ex  solo experimental network
-    stop:ex   solo experimental network
-    shell:ex  solo experimental network"
+    clean  solo ex1 containers and network
+    start  solo ex1 network
+    stop   solo ex1 network
+    shell  solo ex1 network"
             ;;
     esac
 }

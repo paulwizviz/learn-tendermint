@@ -1,7 +1,7 @@
 #!/bin/sh
 
-export TMINT_EX_IMAGE="learn-cosmos/tmintex:current"
 export TMINT_BASE_IMAGE="learn-cosmos/tmintprod:current"
+export TMINT_EX1_IMAGE="learn-cosmos/tmintex1:current"
 
 function tmint_image(){
     local cmd=$1
@@ -9,8 +9,8 @@ function tmint_image(){
         "build:base")
             docker-compose -f ./build/tmint/builder.yaml build base
             ;;
-        "build:ex")
-             docker-compose -f ./build/tmint/builder.yaml build ex
+        "build:ex1")
+             docker-compose -f ./build/tmint/builder.yaml build ex1
             ;;
         "build")
             docker-compose -f ./build/tmint/builder.yaml build base
@@ -19,12 +19,12 @@ function tmint_image(){
         "clean:base")
             docker rmi -f ${TMINT_BASE_IMAGE}
             ;;
-        "clean:ex")
-            docker rmi -f ${TMINT_EX_IMAGE}
+        "clean:ex1")
+            docker rmi -f ${TMINT_EX1_IMAGE}
             ;;
         "clean")
             docker rmi -f ${TMINT_BASE_IMAGE}
-            docker rmi -f ${TMINT_EX_IMAGE}
+            docker rmi -f ${TMINT_EX1_IMAGE}
             docker rmi -f $(docker images --filter "dangling=true" -q)
             ;;
         *)
