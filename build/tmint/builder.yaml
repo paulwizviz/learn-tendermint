@@ -12,12 +12,12 @@ services:
         TMINT_VER: v0.34.24
     image: ${TMINT_BASE_IMAGE}
 
-  ex1:
+  solo:
     build:
       context: ../..
-      dockerfile: ./build/tmint/ex1.dockerfile
+      dockerfile: ./build/tmint/solo.dockerfile
       args:
         OS_VER: 3.18
         GO_VER: 1.22.1
         BASE_IMAGE: ${TMINT_BASE_IMAGE}
-    image: ${TMINT_EX1_IMAGE}
+    image: ${TMINT_SOLO_IMAGE}

@@ -15,9 +15,11 @@ COPY ./go.sum ./go.sum
 
 RUN go mod download && \
     go mod tidy && \
-    go build -o ./build/ex1 ./cmd/tmint/ex1
+    go build -o ./build/ex1 ./cmd/tmint/ex1 && \
+    go build -o ./build/ex2 ./cmd/tmint/ex2
 
-# EX1 image
+# Solo node image
 FROM ${BASE_IMAGE}
 
 COPY --from=builder /opt/build/ex1 /usr/local/bin/ex1
+COPY --from=builder /opt/build/ex2 /usr/local/bin/ex2

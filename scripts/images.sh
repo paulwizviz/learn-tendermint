@@ -1,7 +1,7 @@
 #!/bin/sh
 
-export TMINT_BASE_IMAGE="learn-cosmos/tmintprod:current"
-export TMINT_EX1_IMAGE="learn-cosmos/tmintex1:current"
+export TMINT_BASE_IMAGE="learn-cosmos/tmintbase:current"
+export TMINT_SOLO_IMAGE="learn-cosmos/tmintsolo:current"
 
 function tmint_image(){
     local cmd=$1
@@ -9,8 +9,8 @@ function tmint_image(){
         "build:base")
             docker-compose -f ./build/tmint/builder.yaml build base
             ;;
-        "build:ex1")
-             docker-compose -f ./build/tmint/builder.yaml build ex1
+        "build:solo")
+             docker-compose -f ./build/tmint/builder.yaml build solo
             ;;
         "build")
             docker-compose -f ./build/tmint/builder.yaml build base
@@ -32,7 +32,7 @@ function tmint_image(){
             
 command:
     build:base   base image
-    build:ex     experimental image
+    build:solo   solo node image
     build        all images
     clean:base   base image
     clean:ex     experimental image

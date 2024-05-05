@@ -18,6 +18,9 @@ case $COMMAND in
     "solo:ex1")
         solo_ex1_network $SUBCOMMAND1
         ;;
+    "solo:ex2")
+        solo_ex2_network $SUBCOMMAND1
+        ;;
     "clean")
         solo_ex1_network clean
         tmint_image clean
@@ -28,6 +31,7 @@ case $COMMAND in
 command:
     image     build and clean images
     solo:ex1  network operations
+    solo:ex2  network operations
     clean     removes all project artefacts"
     ;;
 esac

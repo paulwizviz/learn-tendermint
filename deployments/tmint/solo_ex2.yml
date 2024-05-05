@@ -1,0 +1,37 @@
+version: '3.4'
+
+services:
+
+  ex2_1:
+    image: ${TMINT_SOLO_IMAGE}
+    container_name: ${TMINT_EX2_1}
+    working_dir: /root
+    command: sh ex2.sh abci
+    volumes:
+      - ./ex2.sh:/root/ex2.sh
+      - vol:/var
+    networks:
+      - net
+
+  ex2_2:
+    image: ${TMINT_SOLO_IMAGE}
+    container_name: ${TMINT_EX2_2}
+    working_dir: /root
+    command: sh ex2.sh core
+    ports:
+      - "26656-26657:26656-26657"
+    volumes:
+      - ./ex2.sh:/root/ex2.sh
+      - vol:/var
+    networks:
+      - net
+    depends_on:
+      - ex2_1
+
+networks: 
+  net:
+    name: ${TMINT_EX2_NETWORK}
+
+volumes:
+  vol:
+    name: ${TMINT_EX2_VOL}

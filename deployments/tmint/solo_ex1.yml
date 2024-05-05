@@ -3,7 +3,7 @@ version: '3.4'
 services:
 
   ex1_node:
-    image: ${TMINT_EX1_IMAGE}
+    image: ${TMINT_SOLO_IMAGE}
     container_name: ${TMINT_EX1_CONTAINER}
     working_dir: /root
     command: sh ex1.sh
@@ -11,14 +11,9 @@ services:
       - "26656-26657:26656-26657"
     volumes:
       - ./ex1.sh:/root/ex1.sh
-      - vol:/var/abci/
     networks:
       - net
 
 networks: 
   net:
     name: ${TMINT_EX1_NETWORK}
-
-volumes:
-  vol:
-    name: ${TMINT_EX1_VOL_ONE}

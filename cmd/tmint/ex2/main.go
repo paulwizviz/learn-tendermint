@@ -89,12 +89,9 @@ func (App) ApplySnapshotChunk(req types.RequestApplySnapshotChunk) types.Respons
 	return types.ResponseApplySnapshotChunk{}
 }
 
-var socketAddr string
-
 func main() {
 
-	flag.StringVar(&socketAddr, "socket", "/var/abci/ex2.socket", "Socket address")
-	flag.Parse()
+	socketAddr := "unix:///var/ex2.socket"
 
 	logger := log.NewTMLogger(log.NewSyncWriter(os.Stdout))
 
