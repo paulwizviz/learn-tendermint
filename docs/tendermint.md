@@ -1,7 +1,5 @@
 # Tendermint
 
-
-
 First, Tendermint and Cosmos or Cosmos SDK belongs to the same family of software tools. We won't elaborate on the differences between the tools. You can read the difference in [Tendermint & Cosmos SDK Demystified](https://medium.com/coinmonks/tendermint-cosmos-sdk-demystified-47385cf77cf6). For now, think of Tendermint as the basic building block of Cosmos. We'll discuss the features of Cosmos details in other section of this project.
 
 Second, the term `tendermint` encompass several things, and these are:
@@ -89,23 +87,33 @@ In this configuration, the ABCI application runs in a separate process. The appl
 
 You will find an example of a socket-base ABCI app [here](../cmd/tmint/ex2/main.go).
 
-## Working networks
+## Docker Images
 
-You will find a collection of networks for you to conduct experiments.
+To support a series of working examples we have provided mechanism to build two Docker images:
 
-* Solo network
-* Cluster network
+* Base image
+* Solo image
 
-### Solo network
+The base image provides installed version of tendermint core. The specification of the image is [here](../build/tmint/base.dockerfile).
 
-TODO
+The [solo image](../build/tmint/solo.dockerfile) is derived from base image and it provides installed version of the following `ABCI` applications:
 
-You will also find example scripts and application using [curl](../examples/tmint/curl/txn.sh) to simulate a client application. Use the client to:
+* [Ex1](../cmd/tmint/ex1/main.go) - This is a native version of `ABCI` application.
+* [Ex2](../cmd/tmint/ex2/main.go) - This is a socket based version of `ABCI` application.
 
-* Get status of the solo node.
-* Send a transaction.
-* Query the node.
+To build the image use the script [./scripts/tendermint.sh](../scripts/tendermint.sh), run the command `./scripts/tendermint.sh image build` to build all images or `build:base` or `build:solo` for base or solo images respectively. 
+
+## Tendermint Networking Examples
+
+* [Solo Ex1](../deployments/tmint/solo_ex1.yml) - This network has one Solo container `ex1_node` embedded with `Ex1` application.
+* [Solo Ex2](../deployments/tmint/solo_ex2.yml) - This network has two Solo containers `ex2_1` and `ex2_2` embedded with `EX2` application.
+
+To start and stop network use the script `./scripts/tendermint.sh solo:ex1 start` or `./scripts/tendermint.sh solo:ex2 start` to active the respective network. 
+
+A set of example calls can be found [here](../examples/tmint/curl/txn.sh).
 
 ## Useful References
 
 * [Tendermint Explained — Bringing BFT-based PoS to the Public Blockchain Domain](https://blog.cosmos.network/tendermint-explained-bringing-bft-based-pos-to-the-public-blockchain-domain-f22e274a0fdb)
+* [Tendermint Core EXPLAINED (Algorithm & History)](https://www.youtube.com/watch?v=kTczTT9DlP8)
+* [Revisiting Tendermint: Design Tradeoffs, Accountability, and Practical Use](https://www.youtube.com/watch?v=UCuNBukWfAM)
