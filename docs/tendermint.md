@@ -117,3 +117,6 @@ A set of example calls can be found [here](../examples/tmint/curl/txn.sh).
 * [Tendermint Explained — Bringing BFT-based PoS to the Public Blockchain Domain](https://blog.cosmos.network/tendermint-explained-bringing-bft-based-pos-to-the-public-blockchain-domain-f22e274a0fdb)
 * [Tendermint Core EXPLAINED (Algorithm & History)](https://www.youtube.com/watch?v=kTczTT9DlP8)
 * [Revisiting Tendermint: Design Tradeoffs, Accountability, and Practical Use](https://www.youtube.com/watch?v=UCuNBukWfAM)
+* Tendermint Demo
+    * [Tendermint Tutorial Demo - Part 1](https://www.youtube.com/watch?v=pVMFMiZGunw)
+    * [Tendermint Tutorial Demo - Part 2](https://www.youtube.com/watch?v=wko5DPM-9Gs)

@@ -21,3 +21,11 @@ services:
         GO_VER: 1.22.1
         BASE_IMAGE: ${TMINT_BASE_IMAGE}
     image: ${TMINT_SOLO_IMAGE}
+
+  local:
+    build:
+      context: ../..
+      dockerfile: ./build/tmint/local.dockerfile
+      args:
+        BASE_IMAGE: ${TMINT_BASE_IMAGE}
+    image: ${TMINT_LOCAL_IMAGE}

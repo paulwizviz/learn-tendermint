@@ -63,3 +63,29 @@ commands:
             ;;
     esac
 }
+
+export TMINT_CLUSTER_NETWORK="tmint_cluster-network"
+
+function cluster_network(){
+    local cmd=$1
+    case $cmd in
+        "clean")
+            docker-compose -f ./deployments/tmint/cluster.yml down
+            docker network rm ${TMINT_CLUSTER_NETWORK}
+            ;;
+        "start")
+            docker-compose -f ./deployments/tmint/cluster.yml up
+            ;;
+        "stop")
+            docker-compose -f ./deployments/tmint/cluster.yml down
+            ;;
+        *)
+            echo "Usage: $0 cluster [commands]
+            
+commands:
+    clean  cluster containers and network
+    start  cluster
+    stop   cluster"
+            ;;
+    esac
+}

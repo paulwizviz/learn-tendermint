@@ -21,6 +21,9 @@ case $COMMAND in
     "solo:ex2")
         solo_ex2_network $SUBCOMMAND1
         ;;
+    "cluster")
+        cluster_network $SUBCOMMAND1
+        ;;
     "clean")
         solo_ex1_network clean
         tmint_image clean
