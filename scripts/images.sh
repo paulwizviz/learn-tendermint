@@ -27,9 +27,13 @@ function tmint_image(){
         "clean:solo")
             docker rmi -f ${TMINT_SOLO_IMAGE}
             ;;
+        "clean:local")
+            docker rmi -f ${TMINT_LOCAL_IMAGE}
+            ;;
         "clean")
-            docker rmi -f ${TMINT_BASE_IMAGE}
-            docker rmi -f ${TMINT_SOLO_IMAGE}
+            tmint_image clean:base
+            tmint_image clean:solo
+            tmint_image clean:local
             docker rmi -f $(docker images --filter "dangling=true" -q)
             ;;
         *)
@@ -38,6 +42,7 @@ function tmint_image(){
 command:
     build:base   base image
     build:solo   solo node image
+    build:local  local node image
     build        all images
     clean:base   base image
     clean:solo   solo image

@@ -19,7 +19,9 @@ services:
       - vol:/etc/tendermint
     networks:
       local:
-        ipv4_address: 192.167.0.2
+        ipv4_address: 192.168.0.2
+    depends_on:
+      - admin
 
   node1:
     image: ${TMINT_LOCAL_IMAGE}
@@ -31,7 +33,9 @@ services:
       - vol:/etc/tendermint
     networks:
       local:
-        ipv4_address: 192.167.0.3
+        ipv4_address: 192.168.0.3
+    depends_on:
+      - admin
 
   node2:
     image: ${TMINT_LOCAL_IMAGE}
@@ -43,7 +47,9 @@ services:
       - vol:/etc/tendermint
     networks:
       local:
-        ipv4_address: 192.167.0.4
+        ipv4_address: 192.168.0.4
+    depends_on:
+      - admin
 
   node3:
     image: ${TMINT_LOCAL_IMAGE}
@@ -55,7 +61,9 @@ services:
       - vol:/etc/tendermint
     networks:
       local:
-        ipv4_address: 192.167.0.5
+        ipv4_address: 192.168.0.5
+    depends_on:
+      - admin
 
 networks: 
   local:
@@ -64,7 +72,9 @@ networks:
     ipam:
       driver: default
       config:
-        - subnet: 192.167.0.0/16
+        - subnet: 192.168.0.0/16
+          ip_range: 192.168.0.0/24
+          gateway: 192.168.0.254
 
 volumes:
   vol:
