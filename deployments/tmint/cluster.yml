@@ -2,14 +2,21 @@ version: '3.4'
 
 services:
 
+  admin:
+    image: ${TMINT_BASE_IMAGE}
+    container_name: admin
+    command: tendermint testnet --o /etc/tendermint --starting-ip-address 192.168.0.2
+    volumes:
+      - vol:/etc/tendermint
+
   node0:
     image: ${TMINT_LOCAL_IMAGE}
     container_name: node0
+    command: node --home=/etc/tendermint/node0 --proxy_app=kvstore
     ports:
       - "26656-26657:26656-26657"
-    environment:
-      - ID=0
-      - LOG=tendermint.log
+    volumes:
+      - vol:/etc/tendermint
     networks:
       local:
         ipv4_address: 192.167.0.2
@@ -17,22 +24,23 @@ services:
   node1:
     image: ${TMINT_LOCAL_IMAGE}
     container_name: node1
+    command: node --home=/etc/tendermint/node1 --proxy_app=kvstore
     ports:
       - "26659-26660:26656-26657"
-    environment:
-      - ID=1
-      - LOG=tendermint.log
+    volumes:
+      - vol:/etc/tendermint
     networks:
       local:
         ipv4_address: 192.167.0.3
+
   node2:
     image: ${TMINT_LOCAL_IMAGE}
     container_name: node2
+    command: node --home=/etc/tendermint/node2 --proxy_app=kvstore
     ports:
       - "26661-26662:26656-26657"
-    environment:
-      - ID=2
-      - LOG=tendermint.log
+    volumes:
+      - vol:/etc/tendermint
     networks:
       local:
         ipv4_address: 192.167.0.4
@@ -40,11 +48,11 @@ services:
   node3:
     image: ${TMINT_LOCAL_IMAGE}
     container_name: node3
+    command: node --home=/etc/tendermint/node3 --proxy_app=kvstore 
     ports:
       - "26663-26664:26656-26657"
-    environment:
-      - ID=3
-      - LOG=tendermint.log
+    volumes:
+      - vol:/etc/tendermint
     networks:
       local:
         ipv4_address: 192.167.0.5
@@ -57,3 +65,7 @@ networks:
       driver: default
       config:
         - subnet: 192.167.0.0/16
+
+volumes:
+  vol:
+    name: ${TMINT_CLUSTER_VOL}

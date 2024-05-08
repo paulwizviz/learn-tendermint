@@ -65,13 +65,21 @@ commands:
 }
 
 export TMINT_CLUSTER_NETWORK="tmint_cluster-network"
+export TMINT_CLUSTER_VOL="sharevol"
 
 function cluster_network(){
     local cmd=$1
     case $cmd in
         "clean")
             docker-compose -f ./deployments/tmint/cluster.yml down
+            docker volume rm ${TMINT_CLUSTER_VOL}
             docker network rm ${TMINT_CLUSTER_NETWORK}
+            ;;
+        "admin")
+            docker-compose -f ./deployments/tmint/cluster.yml up
+            ;;
+        "shell")
+            docker-compose -f ./deployments/tmint/cluster.yml exec -it node1 /bin/sh
             ;;
         "start")
             docker-compose -f ./deployments/tmint/cluster.yml up

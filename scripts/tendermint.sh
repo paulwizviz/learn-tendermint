@@ -12,6 +12,13 @@ COMMAND=$1
 SUBCOMMAND1=$2
 
 case $COMMAND in
+    "cluster")
+        cluster_network $SUBCOMMAND1
+        ;;
+    "clean")
+        solo_ex1_network clean
+        tmint_image clean
+        ;;
     "image")
         tmint_image $SUBCOMMAND1
         ;;
@@ -21,20 +28,14 @@ case $COMMAND in
     "solo:ex2")
         solo_ex2_network $SUBCOMMAND1
         ;;
-    "cluster")
-        cluster_network $SUBCOMMAND1
-        ;;
-    "clean")
-        solo_ex1_network clean
-        tmint_image clean
-        ;;
     *)
         echo "Usage: $0 [command]
         
 command:
+    cluster   network operations
+    clean     removes all project artefacts
     image     build and clean images
     solo:ex1  network operations
-    solo:ex2  network operations
-    clean     removes all project artefacts"
+    solo:ex2  network operations"
     ;;
 esac
