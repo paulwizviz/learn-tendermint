@@ -113,6 +113,7 @@ case $COMMAND in
         cluster_network $SUBCOMMAND1
         ;;
     "clean")
+        solo_ex2_network clean
         solo_ex1_network clean
         tmint_image clean
         ;;
