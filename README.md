@@ -1,6 +1,6 @@
 # Overview
 
-This project discuss and examine, through working examples, the inner workings and use cases of: [Tendermint](https://tendermint.com/), [Cosmos SDK](https://tendermint.com/sdk/), and [IBC Protocol](https://tendermint.com/ibc/).
+My project demonstrating my understanding of [Tendermint](https://tendermint.com/).
 
 ## Topics
 
